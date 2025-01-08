@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LATTON Forum</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <img src="logo.jpg" alt="LATTON Forum Logo">
+            <img src="ESMT.PNG" alt="ESMT Logo">
+        </div>
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Rechercher sur LATTON Forum">
+        </div>
+        <div class="header-actions">
+            <button class="connexion-btn">CONNEXION</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-image">
+                <div class="slogan-box">
+                    <h1>Bienvenue sur LATTON FORUN !</h1>
+                    
+                    
+                </div>
+            </div>
+        </section>
+
+        <section class="what-is-latton">
+            <h2>QUE VOUS PERMET DE FAIRE LATTON FORUM ?</h2>
+            <div class="content-wrapper">
+                <div class="image-placeholder animated-element slide-from-left panel-section">
+                    <div class="panel-content">
+                        <div class="card">
+                            <img src="image1.jpg" alt="Description de l'image 1">
+                        </div>
+                        <div class="card">
+                            <img src="image2.jpg" alt="Description de l'image 2">
+                        </div>
+                        <div class="card">
+                            <img src="image3.jpg" alt="Description de l'image 3">
+                        </div>
+                        <div class="card">
+                            <img src="image4.jpg" alt="Description de l'image 4">
+                        </div>
+                        <div class="card">
+                            <img src="image5.jpg" alt="Description de l'image 5">
+                        </div>
+                        <div class="card">
+                            <img src="image6.jpg" alt="Description de l'image 6">
+                        </div>
+                    </div>
+                    <div class="scroll-buttons">
+                        <button class="scroll-button scroll-left">←</button>
+                        <button class="scroll-button scroll-right">→</button>
+                    </div>
+                </div>
+                <div class="text-content animated-element slide-from-right">
+                    LATTON FORUM est une communauté en ligne dynamique dédiée à l'ESMT. Nous réunissons des etudiants et professeurs de l'ecole pour partager leurs idées, collaborer à des projets et se soutenir mutuellement.
+                </div>
+            </div>
+        </section>
+        <section class="access-latton">
+    <h2>COMMENT ON FAIT POUR ACCEDER À LATTON FORUM ?</h2>
+    <div class="access-methods">
+        <button class="access-item">
+            <i class="fas fa-sign-in-alt"></i>
+            <p>Accéder via un compte existant</p>
+        </button>
+        <button class="access-item">
+            <i class="fas fa-user-plus"></i>
+            <p>Créer un nouveau compte</p>
+        </button>
+        <!-- Ajoutez d'autres méthodes d'accès ici -->
+    </div>
+</section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p>© 2024 LATTON Forum. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        const header = document.querySelector('.main-header');
+        let lastScrollTop = 0;
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop){
+                header.classList.add('header-hidden');
+            } else {
+                header.classList.remove('header-hidden');
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        }, false);
+
+        // Animation de l'apparition des éléments
+        const animatedElements = document.querySelectorAll('.animated-element');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Une seule apparition
+                }
+            });
+        }, {
+            threshold: 0.1 // Déclencher quand 10% de l'élément est visible
+        });
+
+        animatedElements.forEach((element) => {
+            observer.observe(element);
+        });
+        const section = document.querySelector('.what-is-latton .panel-section');
+    const content = section.querySelector('.panel-content');
+    const leftBtn = section.querySelector('.scroll-buttons .scroll-left');
+    const rightBtn = section.querySelector('.scroll-buttons .scroll-right');
+    let autoScrollTimer;
+    let lastInteraction = Date.now();
+
+    // Fonction pour démarrer le défilement automatique
+    function startAutoScroll() {
+        autoScrollTimer = setInterval(() => {
+            // Si 3 secondes se sont écoulées depuis la dernière interaction
+            if (Date.now() - lastInteraction >= 3000) {
+                // Si on atteint la fin, retour au début
+                if (content.scrollLeft >= content.scrollWidth - content.clientWidth) {
+                    content.scrollTo({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Sinon, on continue de défiler
+                    content.scrollBy({
+                        left: content.offsetWidth, // Scroll by the width of the visible container
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }, 3000);
+    }
+
+    // Fonction pour réinitialiser le timer
+    function resetTimer() {
+        lastInteraction = Date.now();
+        clearInterval(autoScrollTimer);
+        startAutoScroll();
+    }
+
+    // Gestionnaires d'événements pour les boutons
+    leftBtn.addEventListener('click', () => {
+        content.scrollBy({
+            left: -content.offsetWidth, // Scroll back by the width of the visible container
+            behavior: 'smooth'
+        });
+        resetTimer();
+    });
+
+    rightBtn.addEventListener('click', () => {
+        content.scrollBy({
+            left: content.offsetWidth, // Scroll forward by the width of the visible container
+            behavior: 'smooth'
+        });
+        resetTimer();
+    });
+
+    // Mettre à jour la visibilité des boutons au défilement
+    const updateButtons = () => {
+        leftBtn.style.opacity = content.scrollLeft <= 0 ? '0.5' : '1';
+        rightBtn.style.opacity =
+            content.scrollLeft >= content.scrollWidth - content.clientWidth
+            ? '0.5' : '1';
+    };
+
+    content.addEventListener('scroll', updateButtons);
+    updateButtons(); // État initial
+
+    // Démarrer le défilement automatique
+    startAutoScroll();
+
+    // Réinitialiser le timer lors d'une interaction avec le contenu
+    content.addEventListener('mouseover', resetTimer);
+    content.addEventListener('touchstart', resetTimer)
+    </script>
+</body>
+</html>
